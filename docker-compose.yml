@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    image: gitlab.homelab.net:5050/local/simple-app-deepseek1:latest
+    container_name: demo-app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

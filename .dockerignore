@@ -1,0 +1,7 @@
+__pycache__
+*.pyc
+.git
+.gitlab-ci.yml
+image.tar
+tests/
+.pytest_cache
