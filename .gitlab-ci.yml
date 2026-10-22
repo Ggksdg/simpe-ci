@@ -30,6 +30,10 @@ build:
   image: docker:27
   services:
     - docker:27-dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_SERTDIR: ""
+    HEALTHCHECK_TCP_PORT: "2375"
   script:
     - docker build -t $IMAGE_TAG .
     - docker save $IMAGE_TAG -o image.tar
