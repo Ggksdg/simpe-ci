@@ -8,7 +8,7 @@ build:
   # никаких services: [docker:dind]
   script:
     - docker version
-    - docker info | grep -A2 "Insecure Registries"   # sanity check
+    - docker info | grep -A2 " Insecure Registries"   # sanity check
     - docker build -t $IMAGE_TAG .
     - docker save $IMAGE_TAG -o image.tar
   artifacts:
