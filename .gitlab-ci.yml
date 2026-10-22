@@ -69,5 +69,22 @@ deploy:
     - docker exec demo-app python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:5000/health').read().decode())"
   environment:
     name: staging
+    on_stop: stop_deploy
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+#---------------- СТОП ДЕПЛОЙ ------------------------
+stop_deploy:
+  stage: deploy
+  image: docker:27
+  needs: []
+  script:
+    - docker rm -f demo-app 2>/dev/null || true
+    - echo "demo-app stopped"
+  environment:
+    name: staging
+    action: stop
+  when: manual
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
